@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>Document</title>
+    <link rel="stylesheet" href="popup.css">
+    <link rel="stylesheet" href="./lib/bootstrap.min.css">
+</head>
+<body class="small m-2">
+    <div id="fe-extension-container"> 
+        <div class="title-select-model">Hãy chọn model:</div>
+        <select name="model" id="model-select" >
+          <option class="model-item"  value="hard-voting">Voting Classifier(hard voting)</option>
+          <option class="model-item"  value="soft-voting">Voting Classifier(soft voting)</option>
+          <option class="model-item"  value="rfc">Random Forest Classifier</option>
+          <option class="model-item"  value="svc">SVC</option>
+        </select>
+    </div>
+    <script src="./lib/jquery.js"></script>
+    <script src="./lib/flatpickr.min.js"></script>
+    <script src="./lib/popper.js"></script>
+    <script src="./lib/boostrap.js"></script>
+    <script src="./lib/select2.js"></script>
+    <script src="./lib/vn.js"></script>
+    <script src="./popup.js"></script>
+</body>
+</html>
