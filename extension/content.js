@@ -1,16 +1,3 @@
-const body = document.getElementsByTagName("body");
-const URL = "https://mail.google.com/mail/u/0/#inbox";
-
-document.addEventListener("click", function (event) {
-  console.log(event.target);
-  if (
-    event.target.classList.contains("y2") ||
-    event.target.classList.contains("yW") ||
-    event.target.classList.contains("yP")
-  ) {
-    chrome.runtime.sendMessage({ action: "ok" });
-  }
-});
 
 
 window.addEventListener("popstate", function () {
@@ -35,12 +22,30 @@ function createBtn(html) {
   button.className = "btn-clone-post";
   return button;
 }
+
 function sendMessage ({type, data}) {
   chrome.runtime.sendMessage({
     type,
     data
 });
 }
+
+
+function convertToPlainText(html) {
+  html = html.replace(/<style([\s\S]*?)<\/style>/gi, '');
+  html = html.replace(/<script([\s\S]*?)<\/script>/gi, '');
+  html = html.replace(/<\/div>/ig, '\n');
+  html = html.replace(/<\/li>/ig, '\n');
+  html = html.replace(/<li>/ig, '  *  ');
+  html = html.replace(/<\/ul>/ig, '\n');
+  html = html.replace(/<\/p>/ig, '\n');
+  html = html.replace(/<br\s*[\/]?>/gi, "\n");
+  html = html.replace(/<[^>]+>/ig, '');
+  html = html.replace(/Clone Video/ig, '');
+  html = html.trim();
+  return html;
+}
+
 
 
 function createButton() {
@@ -58,10 +63,30 @@ function createButton() {
    }
 
    button.onclick = (e) => {
+    let content = ""
+    let imageLinks = [];
+    const target = e.target
+    const elementWraperContent = target.nextSibling;
+
+    if (elementWraperContent) {
+      content = convertToPlainText(elementWraperContent.innerHTML)
+    }
+
+    const elementWrapperImage = elementWraperContent.nextSibling
+    if(elementWrapperImage) {
+      const images = elementWrapperImage.querySelectorAll("img")
+      images.forEach(image => {
+        if(image.classList.length) imageLinks.push(image.getAttribute("src")) 
+        
+      });
+    }
     sendMessage({
       type:"clone post",
       data: {
-        text:"oke "
+        text:"oke ",
+        target: target,
+        content:content,
+        imageLinks: imageLinks
       }
     })
    }
