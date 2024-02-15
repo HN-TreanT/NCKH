@@ -27,6 +27,13 @@ const responseSuccessWithData = ({ res, data }) => {
   });
 };
 
+const responseNotFound = ({res, message}) => {
+  return res.status(404).json({
+    status: false,
+    message: message,
+  });
+}
+
 const responseUnthorized = ({ res }) => {
   return res.status(401).json({
     status: false,
@@ -48,4 +55,5 @@ module.exports = {
   responseSuccessWithData,
   responseUnthorized,
   reponseForbidden,
+  responseNotFound
 };

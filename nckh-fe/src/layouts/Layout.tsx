@@ -4,7 +4,7 @@ import { Navigate, Outlet, Route } from 'react-router-dom';
 import { RouterLinks } from '../const/RouterLinks';
 import { AppContext } from '../context/appContext';
 import Sidebar from "./sider/sider"
-
+import AppHeader from "./Header";
 import './Layout.scss'
 
 const {Content} = Layout
@@ -21,8 +21,8 @@ const MainLayout: React.FC = () => {
       }
  return <Layout>
       <Sidebar />
-    <Layout className="site-layout" style={{ marginLeft: 300 }}>
-      {/* <AppHeader /> */}
+    <Layout className="site-layout" >
+      <AppHeader />
         <Content
           style={{
             margin: '24px 16px 0', overflow: 'initial',

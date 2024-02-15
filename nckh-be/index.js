@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const pagination = require("./middleware/pagination");
 const pageNotfound = require("./helper/pageNotfound");
 const { api } = require("./config");
-
+const db = require("./config/connectDB")
 const route = require("./routes");
 const app = express();
 
@@ -23,6 +23,9 @@ var corsOptions = {
   exposedHeaders: "Content-Range",
 };
 app.use(cors(corsOptions));
+
+//connect db
+db.connect()
 
 const checkHealth = (req, res) => {
   res.send("SERVER IS RUNNING...");

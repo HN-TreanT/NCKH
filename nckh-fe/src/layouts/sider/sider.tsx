@@ -1,33 +1,15 @@
 import Sider from "antd/es/layout/Sider";
 import { Image, Menu } from "antd";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-
-import logo from '../../assets/snapedit_1702777474789.png'
-import { RouterLinks } from "../../const/RouterLinks";
-import {
-  ReconciliationOutlined,
-  HomeOutlined,
-  InboxOutlined,
-  UsergroupAddOutlined,
-  FieldTimeOutlined,
-  CoffeeOutlined,
-  MoneyCollectOutlined,
-  TableOutlined,
-  DropboxOutlined,
-  
+import {  useNavigate } from "react-router-dom";
+import { 
+  HomeOutlined,  
+  MoneyCollectOutlined, 
 } from "@ant-design/icons";
-import {
-  UploadOutlined,
-  UserOutlined,
-  AppstoreAddOutlined,
-} from '@ant-design/icons';
+import logo from "../../assets/logo.png"
 import SubMenu from "antd/es/menu/SubMenu";
 import { memo } from "react";
 
-interface props {
-  collapsed: any,
-  setCollapsed: any
-}
+
 const menuItems = [
   {
     key: "tong quan",
@@ -70,8 +52,9 @@ const Sidebar = () => {
       left: 0,
       top: 0,
       bottom: 0,
-    }} width={300} trigger={null}>
-      <Image src={logo} preview={false} style={{ padding: 5, width: "200px", marginLeft: "34px" }} />
+    }} width={250} trigger={null}>
+      
+       <div style={{margin:"0 auto"}}><Image src={logo} preview={false} style={{ padding: 5, width: "170px", height:"65px", marginTop:"7px" }} /></div>
       <Menu
         selectedKeys={['/' + window.location.pathname.split("/")[1] + '/' + window.location.pathname.split("/")[2]]}
         defaultOpenKeys ={[window.location.pathname.split("/")[1]]}

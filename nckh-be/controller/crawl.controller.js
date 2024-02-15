@@ -1,4 +1,5 @@
 const puppeteer = require("puppeteer")
+const convertHtmlToText = require("../helper/convertHtmlToText")
 const {responseInValid, responseServerError, reponseSuccess, responseSuccessWithData} = require("../helper/ResponseRequests")
 // const getWebsite = async (req, res) => {
 //     if(!req.query.website) {
@@ -21,8 +22,7 @@ const testWebsite = async (req,res) => {
   const page = await browser.newPage()
   await page.goto(website) 
   const content = await page.$eval("*", el => el.innerHTML)
-  console.log("check content", content)
-  return responseSuccessWithData({res, data: content})
+  return responseSuccessWithData({res, data: convertHtmlToText(content)})
 }
 
 const getWebsite = async (req, res) => {
