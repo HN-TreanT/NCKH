@@ -66,7 +66,6 @@ const deleteUser = async (req, res) => {
     const user = await Users.findOneAndDelete({userId: userId})
     if(!user) return responseNotFound({res, message:"not foud user"})
     return reponseSuccess({res})
-
 }
 
 const getDetail = async (req, res) => {

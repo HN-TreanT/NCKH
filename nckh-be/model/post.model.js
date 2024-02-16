@@ -7,9 +7,10 @@ const postSchema = new Schema(
         title: { type: String , default: null},
         content: {type: String, default: null},
         author: {type: String, default: null},
-        url: {type: String, default: null},
+        url: {type: String, default: null}, 
         images:[{type:String, default:null}],
-        videos:[{type: String, default: null}]
+        videos:[{type: String, default: null}],
+        sensetive: {type: Number, default: 0}
     },
     {
         timestamps:true

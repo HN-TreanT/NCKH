@@ -51,7 +51,7 @@ function convertToPlainText(html) {
 function createButton() {
   //  const elements = document.getElementsByClassName("x1lliihq")
   const elements = document.getElementsByClassName("x1cy8zhl x78zum5 x1q0g3np xod5an3 x1pi30zi x1swvt13 xz9dl7a");
-
+                                                  
    const button = createBtn("clone")
    for (const element of elements) {
     const parent = element.parentNode;
@@ -65,8 +65,28 @@ function createButton() {
    button.onclick = (e) => {
     let content = ""
     let imageLinks = [];
+    let title = ""
+    let linkPage = ""
     const target = e.target
     const elementWraperContent = target.nextSibling;
+
+    //get tieu de
+    const titleParent = elementWraperContent?.parentNode?.previousSibling
+
+    if(titleParent) {
+       const linkElement = titleParent.getElementsByTagName('a')
+       const titleElement = titleParent.getElementsByTagName('strong')
+       if(titleElement) {
+        title = convertToPlainText(titleElement[0].innerHTML)
+       }
+       if(linkElement) {
+        //   title = linkElement
+        // //  title = convertToPlainText(titleParent.innerHTML)
+        // //  title = titleElement[0].getAttribute("aria-label")
+         linkPage = linkElement[0].getAttribute("href")
+       }
+
+    }
 
     if (elementWraperContent) {
       content = convertToPlainText(elementWraperContent.innerHTML)
@@ -86,7 +106,9 @@ function createButton() {
         text:"oke ",
         target: target,
         content:content,
-        imageLinks: imageLinks
+        imageLinks: imageLinks,
+        title:title,
+        linkPage: linkPage
       }
     })
    }
