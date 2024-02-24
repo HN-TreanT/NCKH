@@ -10,7 +10,9 @@ import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import MainLayout from './layouts/Layout';
 import NotFound from './pages/not-found/NotFound';
-import ThongKe from './pages/thong-ke';
+import ThongKeTime from './pages/thong-ke-time';
+import ThongKeCount from './pages/thong-ke-count';
+import KiemTraWebsite from './pages/kiem-tra-website';
 import ErrorPage from './pages/error-page/ErrorPage';
 
 function App() {
@@ -26,7 +28,10 @@ function App() {
                     <Route path={RouterLinks.LOGIN} element={<Login/>} errorElement={<ErrorPage/>}></Route>
                     <Route path={RouterLinks.REGISTER} element={<Register/>} errorElement={<ErrorPage/>}></Route>
                     <Route path={RouterLinks.HOME_PAGE} element={<MainLayout/>} errorElement={<ErrorPage/>}>
-                      <Route path={RouterLinks.THONG_KE} element={<ThongKe/>} errorElement={<ErrorPage/>}></Route>
+                      <Route path={RouterLinks.THONG_KE_TIME} element={<ThongKeTime/>} errorElement={<ErrorPage/>}></Route>
+                      <Route path={RouterLinks.THONG_KE_COUNT} element={<ThongKeCount/>} errorElement={<ErrorPage/>}></Route>
+                      <Route path={RouterLinks.KIEM_TRA_WEBSITE} element={<KiemTraWebsite/>} errorElement={<ErrorPage/>}></Route>
+
                     </Route>
 
                 </Routes>

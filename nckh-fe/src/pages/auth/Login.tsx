@@ -46,7 +46,7 @@ const Login = () => {
       </Col>
       <Col style={{ height: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }} span={8}>
         {/* <img src={Logo} className="logo-login" alt="htht" height={200} /> */}
-        <div style={{ fontSize: "25px", marginBottom: "1px", fontWeight: "600", fontFamily: "cursive" }}> QUẢN LÍ BÁN CAFFE</div>
+        <div style={{ fontSize: "25px", marginBottom: "1px", fontWeight: "600", fontFamily: "cursive" }}>Hệ thống phát hiện nhạy cảm</div>
         <div style={{ margin: "30px", width: "75%" }}>
           <Form form={form} layout="vertical" >
             <Form.Item

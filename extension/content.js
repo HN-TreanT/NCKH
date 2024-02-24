@@ -76,15 +76,24 @@ function createButton() {
     if(titleParent) {
        const linkElement = titleParent.getElementsByTagName('a')
        const titleElement = titleParent.getElementsByTagName('strong')
-       if(titleElement) {
-        title = convertToPlainText(titleElement[0].innerHTML)
-       }
        if(linkElement) {
-        //   title = linkElement
-        // //  title = convertToPlainText(titleParent.innerHTML)
-        // //  title = titleElement[0].getAttribute("aria-label")
-         linkPage = linkElement[0].getAttribute("href")
+        linkPage = linkElement[0].getAttribute("href")
+
        }
+       if(linkPage.startsWith("https://web.facebook.com/")) {
+        // title = convertToPlainText(titleElement[0]?.innerHTML)
+           title = titleElement[0]?.innerText
+         
+       } else {
+          title =  convertToPlainText(linkElement[0]?.innerHTML)
+          linkPage = `https://web.facebook.com/${linkPage}`
+       }
+      //  if(linkElement) {
+      //   //   title = linkElement
+      //   // //  title = convertToPlainText(titleParent.innerHTML)
+      //   // //  title = titleElement[0].getAttribute("aria-label")
+      //    linkPage = linkElement[0].getAttribute("href")
+      //  }
 
     }
 
