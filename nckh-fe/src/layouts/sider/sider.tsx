@@ -1,6 +1,7 @@
 import Sider from "antd/es/layout/Sider";
 import { Image, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
+// import { CheckCircleOutlined, LineChartOutlined } from "@ant-design/icons";
 import { CheckCircleOutlined, LineChartOutlined } from "@ant-design/icons";
 import logo from "../../assets/logo.png";
 import SubMenu from "antd/es/menu/SubMenu";

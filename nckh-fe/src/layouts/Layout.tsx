@@ -22,9 +22,9 @@ const MainLayout: React.FC = () => {
   } = theme.useToken();
   const token = localStorage.getItem("token");
 
-  // if (!token) {
-  //     return <Navigate to={"/login"} />;
-  //   }
+  if (!token) {
+    return <Navigate to={"/login"} />;
+  }
 
   const hanldeLogout = () => {
     localStorage.clear();

@@ -3,7 +3,8 @@ import { Row, Col, Breadcrumb, Divider } from "antd";
 import ListPage from "./components/ListPage";
 import BarChar from "./components/BarChart";
 import LineChar from "./components/LineChar";
-import "./index.css";
+import "./index.scss";
+
 const ThongKeTime: React.FC = () => {
   return (
     <div className="thong-ke-time">
@@ -26,7 +27,7 @@ const ThongKeTime: React.FC = () => {
         <Divider style={{ margin: "10px" }}></Divider>
       </Row>
       <Row gutter={[10, 10]}>
-        <Col span={8}>
+        <Col className="list-page" span={8}>
           <ListPage />
         </Col>
         <Col span={16}>
