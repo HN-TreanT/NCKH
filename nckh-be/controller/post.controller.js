@@ -1,7 +1,7 @@
 const {responseInValid, responseServerError, responseSuccessWithData, reponseSuccess, responseNotFound} = require("../helper/ResponseRequests")
 const { v4: uuid } = require("uuid");
 const Joi = require("joi")
-const data_exporter = require("json2csv").Parser
+// const data_exporter = require("json2csv").Parser
 const Posts = require("../model/post.model")
 const { convertArrayToCSV } = require('convert-array-to-csv');
 const fs = require("fs")
@@ -145,9 +145,27 @@ const exportExcel2 =async (req, res) => {
 }
 
 
+const thongKe = async (req, res) => {
+   const data = await Posts.aggregate([
+     {
+        $group: {
+            _id:"$url",
+            count: { $sum: 1 }
+        },
+     },
+     {
+        $sort: { count: -1 }
+    }
+   ])
+   return responseSuccessWithData({
+    res,
+    data: data
+   })
+}
+
 
 
 
 module.exports = {
-    create, update, deletePost, detail, get, exportExcel,exportExcel2
+    create, update, deletePost, detail, get, exportExcel,exportExcel2, thongKe
 }

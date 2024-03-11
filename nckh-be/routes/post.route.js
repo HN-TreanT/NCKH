@@ -8,5 +8,7 @@ Route.put("/:postId", tryCatch(controller.update))
 Route.delete("/:postId", tryCatch(controller.deletePost))
 Route.get("/csv/export", tryCatch(controller.exportExcel))
 
+Route.get("/thongke/thongke", tryCatch(controller.thongKe))
+
 
 module.exports = Route
