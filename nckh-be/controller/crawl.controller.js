@@ -20,9 +20,11 @@ const testWebsite = async (req,res) => {
   }
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
-  await page.goto(website) 
+  page.setDefaultNavigationTimeout(0)
+  await page.goto(website, {timeout: 0}) 
   const content = await page.$eval("*", el => el.innerHTML)
   return responseSuccessWithData({res, data: convertHtmlToText(content)})
+  // return responseSuccessWithData({res, data: content})
 }
 
 const getWebsite = async (req, res) => {
@@ -34,12 +36,14 @@ const getWebsite = async (req, res) => {
 
     const registry = {};
     let queue = [website];
+    
 
     while (queue.length > 0) {
       const url = queue[queue.length - 1];
       console.log("current url", url);
       const page = await browser.newPage();
-      await page.goto(url);
+      page.setDefaultNavigationTimeout(0)
+      await page.goto(url, {timeout: 0});
       registry[url] = await page.$eval("*", (el) => el.innerText);
       queue.pop();
       console.log("queue length", queue);
