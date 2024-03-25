@@ -65,7 +65,7 @@ const get = async (req,res) => {
     const {search} = req.query
     const {limit, offset} = req.pagination
     let options = {}
-    const data = await Posts.find(options).skip(offset).limit(limit)
+    const data = await Posts.find(options).skip(offset).limit(limit).sort("createdAt")
     const count = await Posts.find(options).countDocuments()
     return responseSuccessWithData({res, data :{
         data,
@@ -149,12 +149,16 @@ const thongKe = async (req, res) => {
    const data = await Posts.aggregate([
      {
         $group: {
-            _id:"$url",
+            // _id:{url: "$url", title: "$title"},
+            _id:"$title",
             count: { $sum: 1 }
         },
      },
      {
         $sort: { count: -1 }
+    }, 
+    {
+        $limit: 10 
     }
    ])
    return responseSuccessWithData({
@@ -164,8 +168,13 @@ const thongKe = async (req, res) => {
 }
 
 
+const getUrlPageNhayCam = async (req, res) => {
+
+
+}
+
 
 
 module.exports = {
-    create, update, deletePost, detail, get, exportExcel,exportExcel2, thongKe
+    create, update, deletePost, detail, get, exportExcel,exportExcel2, thongKe, getUrlPageNhayCam
 }
