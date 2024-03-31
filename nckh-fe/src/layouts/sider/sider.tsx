@@ -34,12 +34,12 @@ const menuItems = [
     ),
     children: [
       {
-        key: RouterLinks.THONG_KE_TIME,
-        label: "Thống kê theo thời gian",
+        key: RouterLinks.THONG_KE_COUNT,
+        label: "Danh sách page nhạy cảm",
       },
       {
-        key: RouterLinks.THONG_KE_COUNT,
-        label: "Thống kê theo số lượng",
+        key: RouterLinks.THONG_KE_TIME,
+        label: "Thống kê ",
       },
     ],
   },

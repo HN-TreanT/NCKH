@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Layout, theme, Dropdown, MenuProps } from "antd";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { RouterLinks } from "../const/RouterLinks";
-import { AppContext } from "../context/appContext";
+// import { AppContext } from "../context/appContext";
 import Sidebar from "./sider/sider";
 import AppHeader from "./Header";
 import "./Layout.scss";
@@ -16,7 +16,7 @@ const { Content, Header } = Layout;
 
 const MainLayout: React.FC = () => {
   const navigate = useNavigate();
-  const { socket } = useContext(AppContext);
+  // const { socket } = useContext(AppContext);
   const {
     token: { colorBgContainer },
   } = theme.useToken();

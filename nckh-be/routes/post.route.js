@@ -9,6 +9,6 @@ Route.delete("/:postId", tryCatch(controller.deletePost))
 Route.get("/csv/export", tryCatch(controller.exportExcel))
 
 Route.get("/thongke/thongke", tryCatch(controller.thongKe))
-
+Route.post("/getpostfb/get", tryCatch(controller.getPostFacebook))
 
 module.exports = Route

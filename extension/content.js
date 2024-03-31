@@ -13,6 +13,16 @@ window.onload = function () {
 }
 window.onscroll = function ()  {
   createButton()
+  // get post
+  // const elements = document.getElementsByClassName("x1cy8zhl x78zum5 x1q0g3np xod5an3 x1pi30zi x1swvt13 xz9dl7a");
+
+  // for(const element of elements) {
+  //   const parent = element.parentNode;
+  //   const nextSibling = parent.nextSibling
+  //   console.log(nextSibling)
+  // }
+
+  console.log("check")
 
 }
 
@@ -62,6 +72,7 @@ function createButton() {
   }
    }
 
+   button.style.display = "none"
    button.onclick = (e) => {
     let content = ""
     let imageLinks = [];
@@ -101,26 +112,51 @@ function createButton() {
       content = convertToPlainText(elementWraperContent.innerHTML)
     }
 
-    const elementWrapperImage = elementWraperContent.nextSibling
-    if(elementWrapperImage) {
-      const images = elementWrapperImage.querySelectorAll("img")
-      images.forEach(image => {
-        if(image.classList.length) imageLinks.push(image.getAttribute("src")) 
-        
-      });
+   
+    // sendMessage({
+    //   type:"clone post",
+    //   data: {
+    //     text:"oke ",
+    //     target: target,
+    //     content:content,
+    //     imageLinks: imageLinks,
+    //     title:title,
+    //     linkPage: linkPage
+    //   }
+    // })
+
+    //fetch api
+
+    const dataSubmit = {
+      title:title ,
+      content: content ,
+      url: linkPage, 
+      images: imageLinks,
     }
-    sendMessage({
-      type:"clone post",
-      data: {
-        text:"oke ",
-        target: target,
-        content:content,
-        imageLinks: imageLinks,
-        title:title,
-        linkPage: linkPage
-      }
-    })
-   }
+    console.log(dataSubmit)
+
+        fetch("http://localhost:8080/api/post/getpostfb/get",
+      {
+          headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+          },
+          method: "POST",
+          body: JSON.stringify(dataSubmit)
+      })
+      .then(function(res){ 
+          if(res.status) {
+            parent.parentNode.style.setProperty("background-color", "white", "important");
+            parent.parentNode.style.setProperty("z-index", "9999");
+            parent.parentNode.style.setProperty("opacity", "0.005");
+            parent.parentNode.style.setProperty("pointer-events", "none")            
+          }
+      })
+      .catch(function(err){ console.log(err?.message) })
+  }
+
+
+   button.click()
 }
 }
 

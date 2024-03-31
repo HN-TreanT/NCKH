@@ -18,6 +18,12 @@ const postSchema = Joi.object().keys({
 })
 
 
+const getPostFacebook = async (req, res) => {
+    
+  return reponseSuccess({res}) 
+
+}
+
 const create = async (req,res) => {
    
    const checkValidate = postSchema.validate(req.body)
@@ -176,5 +182,5 @@ const getUrlPageNhayCam = async (req, res) => {
 
 
 module.exports = {
-    create, update, deletePost, detail, get, exportExcel,exportExcel2, thongKe, getUrlPageNhayCam
+    create, update, deletePost, detail, get, exportExcel,exportExcel2, thongKe, getUrlPageNhayCam, getPostFacebook
 }

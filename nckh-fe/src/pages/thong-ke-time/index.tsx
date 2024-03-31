@@ -59,11 +59,8 @@ const ThongKeTime: React.FC = () => {
               title: "Thống kê",
             },
             {
-              title: (
-                <span style={{ fontWeight: "bold" }}>
-                  Thống kê theo thời gian
-                </span>
-              ),
+              //theo thời gian
+              title: <span style={{ fontWeight: "bold" }}>Thống kê</span>,
             },
           ]}
         />
