@@ -164,7 +164,7 @@ def text_preprocessing(document):
     document = remove_unnecessary_character(document)
     return document
 
-stopwords = pickle.load(open('Data/saved/stopwords.sav', 'rb'))
+stopwords = pickle.load(open('./stopwords.sav', 'rb'))
 # Loại bỏ stopword
 def remove_stopwords(document):
     words = document.split(' ')

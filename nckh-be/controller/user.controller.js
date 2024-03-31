@@ -4,6 +4,7 @@ const Users = require("../model/user.model")
 const security = require("../utils/security")
 const {responseInValid, reponseSuccess, responseSuccessWithData, responseNotFound} = require("../helper/ResponseRequests")
 const Joi = require("joi")
+const { v4: uuid } = require("uuid");
 
 const registerSchema = Joi.object().keys({
     displayName: Joi.string().required(),

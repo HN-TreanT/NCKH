@@ -1,5 +1,5 @@
 export const serverConfig = {
   // server: "https://web-api-cafe.adaptable.app",
-  // server: "http://45.76.107.185:8080",
-  server: "http://localhost:8080",
+  server: "https://nckh.onrender.com",
+  // server: "http://localhost:8080",
 };

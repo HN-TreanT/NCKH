@@ -1,44 +1,41 @@
 import React from "react";
 import { Form, Button, Input, Row, Col } from "antd";
 import { message } from "antd";
-// import { authServices } from "../../utils/services/authService ";
+import { authService } from "../../utils/services/authServices";
 import { useDispatch } from "react-redux";
 import useAction from "../../redux/useActions";
 import { useNavigate } from "react-router-dom";
 import { RouterLinks } from "../../const/RouterLinks";
 import loginBack from "../../assets/login-v2.svg";
-// import Logo from "../../assets/snapedit_1702777474789.png"
+
 const Login = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const dispatch = useDispatch();
-  const actions = useAction();
 
   const onFinish = async (value: any) => {
-    localStorage.setItem("username", "hoangnam");
-    localStorage.setItem("name", "Hoàng Nam");
-    localStorage.setItem("token", "ok");
-    navigate(RouterLinks.KIEM_TRA_WEBSITE);
-    //   try {
-    //     const res = await authServices.login(value);
-    //     if (res.status) {
-    //       console.log("res.status", res.data.name)
-    //       dispatch(actions.AuthActions.userInfo(res.data))
-    //       localStorage.setItem("role", res.data.id_position)
-    //       localStorage.setItem("username", res.data.TaiKhoan)
-    //       localStorage.setItem("name", res.data.name)
-    //       localStorage.setItem("token", res.data.access_token)
-    //       localStorage.setItem("refresh_token", res.data.refresh_token)
+    // localStorage.setItem("username", "hoangnam");
+    // localStorage.setItem("name", "Hoàng Nam");
+    // localStorage.setItem("token", "ok");
+    // navigate(RouterLinks.KIEM_TRA_WEBSITE);
+      try {
+        const res = await authService.login(value);
+        console.log(res)
+        if (res.status) {
+          console.log("res.status", res.data.name)
+          localStorage.setItem("role", res.data.id_position)
+          localStorage.setItem("username", res.data.TaiKhoan)
+          localStorage.setItem("name", res.data.name)
+          localStorage.setItem("token", res.data.access_token)
+          localStorage.setItem("refresh_token", res.data.refresh_token)
     // navigate(RouterLinks.KIEM_TRA_WEBSITE)
-    //       navigate(RouterLinks.TONG_QUAN)
-    //     } else {
-    //       message.error(res.message)
-    //     }
-    //   } catch (err) {
-    //     console.log(err);
-    //     message.error("Đăng nhập thất bại")
-    //   }
+        } else {
+          message.error(res.message)
+        }
+      } catch (err) {
+        console.log(err);
+        message.error("Đăng nhập thất bại")
+      }
   };
 
   return (
