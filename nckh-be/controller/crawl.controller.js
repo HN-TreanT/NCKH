@@ -46,7 +46,8 @@ const testWebsite = async (req,res) => {
 
 
 const getWebsite = async (req, res) => {
-    const website = req.query.website
+    
+    const {website, countPage} = req.query
     if(!website) {
         return responseInValid({res, message:"website required"})
     }
@@ -56,7 +57,7 @@ const getWebsite = async (req, res) => {
     let queue = [website];
     
 
-    while (queue.length > 0 && queue.length < 10) {
+    while (queue.length > 0 && queue.length < countPage) {
       // try {
 
           const url = queue[queue.length - 1];
@@ -70,14 +71,7 @@ const getWebsite = async (req, res) => {
         }
 
         //test
-        // const content = await page.$eval("*", el => el.innerHTML)
-        // const title = await page.$$eval('h1', elements => {
-        //   return elements[0]?.textContent.trim() || " "
-        // })
-        // registry[url] = {content, title, url}
-        // const pageInfo = {content: convertHtmlToText(content), title, url}
-        // result.push(pageInfo)
-        //
+    
         registry[url] = await page.$eval("*", (el) => el.innerText);
         queue.pop();
 
@@ -92,17 +86,13 @@ const getWebsite = async (req, res) => {
         const uniqueHrefs = [...new Set(filteredHrefs)];
         queue.push(...uniqueHrefs);
         queue = [...new Set(queue)];
-
         await page.close();
-      // } catch (err) {
-      //   continue;
-      // }
     }
 
     let index = 0;
     const result = []
 
-    while (index < queue.length) {
+    while (index < countPage) {
       try {
         const page = await browser.newPage();
         page.setDefaultNavigationTimeout(0)
@@ -125,7 +115,7 @@ const getWebsite = async (req, res) => {
         result.push({
           content: content,
           title: title,
-          url: queue[0]
+          url: queue[index]
         });
         index ++;
       

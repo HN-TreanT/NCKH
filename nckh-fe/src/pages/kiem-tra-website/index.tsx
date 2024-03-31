@@ -11,8 +11,8 @@ import {
   Table,
 } from "antd";
 
-import { LoadingOutlined } from "@ant-design/icons";
-
+import { LoadingOutlined, CloseOutlined } from "@ant-design/icons";
+import { crawlServices } from "../../utils/services/crawlService";
 const fakeData = [
   {
     url: "https://codesandbox.io/p/sandbox/basic-usage-antd-5-14-1-lsz5vv?",
@@ -48,11 +48,18 @@ const fakeData = [
     url: "https://codesandbox.io/p/sandbox/basic-usage-antd-5-14-1-lsz5vv?",
   },
 ];
+
+interface UrlPage {
+  content: String;
+  title: String;
+  url: String;
+}
 interface optionProps {
   status: String;
   icon?: any;
 }
 const KiemTraWebsite: React.FC = () => {
+  const [status, setStatus] = useState();
   const [optionsStep1, setOptionStep1] = useState<optionProps>({
     status: "wait",
   });
@@ -64,6 +71,10 @@ const KiemTraWebsite: React.FC = () => {
   });
 
   const [dataUrl, setDataUrl] = useState<any>([]);
+  const [urlInput, setUrlInput] = useState<any>();
+  const [urlPage, setUrlPage] = useState<UrlPage[]>([]);
+  console.log("check", urlPage);
+  const [count, setCount] = useState(0);
   const items: any[] = [
     {
       title: "Quét trang web",
@@ -88,31 +99,61 @@ const KiemTraWebsite: React.FC = () => {
       status: "process",
       icon: <LoadingOutlined />,
     });
-    setTimeout(() => {
-      setOptionStep1({
-        status: "finish",
-      });
-      setOptionStep2({
-        status: "process",
-        icon: <LoadingOutlined />,
-      });
-      setTimeout(() => {
-        setOptionStep2({
-          status: "finish",
-        });
-        setOptionStep3({
-          status: "process",
-          icon: <LoadingOutlined />,
-        });
-        setTimeout(() => {
-          setOptionStep3({
+    crawlServices
+      .getWebsite({
+        website: urlInput,
+        countPage: 100,
+      })
+      .then((res) => {
+        if (res.status && Array.isArray(res?.data?.result)) {
+          setUrlPage(res.data.result);
+          setOptionStep1({
             status: "finish",
           });
-          setDataUrl(fakeData);
-        }, 10000);
-      }, 10000);
-    }, 10000);
+          setOptionStep2({
+            status: "process",
+            icon: <LoadingOutlined />,
+          });
+        }
+      })
+      .catch((err) => {
+        setOptionStep1({
+          status: "error",
+          icon: <CloseOutlined />,
+        });
+      });
   };
+
+  // const handleCheck = () => {
+  //   setOptionStep1({
+  //     status: "process",
+  //     icon: <LoadingOutlined />,
+  //   });
+  //   setTimeout(() => {
+  //     setOptionStep1({
+  //       status: "finish",
+  //     });
+  //     setOptionStep2({
+  //       status: "process",
+  //       icon: <LoadingOutlined />,
+  //     });
+  //     setTimeout(() => {
+  //       setOptionStep2({
+  //         status: "finish",
+  //       });
+  //       setOptionStep3({
+  //         status: "process",
+  //         icon: <LoadingOutlined />,
+  //       });
+  //       setTimeout(() => {
+  //         setOptionStep3({
+  //           status: "finish",
+  //         });
+  //         setDataUrl(fakeData);
+  //       }, 10000);
+  //     }, 10000);
+  //   }, 10000);
+  // };
 
   const columns: any = [
     {
@@ -143,7 +184,10 @@ const KiemTraWebsite: React.FC = () => {
       <Row gutter={[10, 10]}>
         <Col span={16} style={{ display: "flex", alignItems: "center" }}>
           <div style={{ width: "130px", fontWeight: "700" }}>URL kiểm tra</div>
-          <Input placeholder="Nhập url muốn kiểm tra"></Input>
+          <Input
+            onChange={(value) => setUrlInput(value.target.value)}
+            placeholder="Nhập url muốn kiểm tra"
+          ></Input>
           <Button
             onClick={handleCheck}
             type="primary"
