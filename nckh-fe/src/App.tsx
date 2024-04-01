@@ -14,7 +14,7 @@ import ThongKeTime from "./pages/thong-ke-time";
 import ThongKeCount from "./pages/thong-ke-count";
 import KiemTraWebsite from "./pages/kiem-tra-website";
 import ErrorPage from "./pages/error-page/ErrorPage";
-
+import KiemTraOneWebsite from "./pages/kiem-tra-website/KiemTraWebsite";
 function App() {
   return (
     <Provider store={store}>
@@ -53,6 +53,11 @@ function App() {
                   <Route
                     path={RouterLinks.KIEM_TRA_WEBSITE}
                     element={<KiemTraWebsite />}
+                    errorElement={<ErrorPage />}
+                  ></Route>
+                  <Route
+                    path={RouterLinks.KIEM_TRA__ONE_WEBSITE}
+                    element={<KiemTraOneWebsite />}
                     errorElement={<ErrorPage />}
                   ></Route>
                 </Route>

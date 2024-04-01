@@ -20,7 +20,11 @@ const menuItems = [
     children: [
       {
         key: RouterLinks.KIEM_TRA_WEBSITE,
-        label: "Website",
+        label: "Quét website",
+      },
+      {
+        key: RouterLinks.KIEM_TRA__ONE_WEBSITE,
+        label: "Kiểm tra web",
       },
     ],
   },

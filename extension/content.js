@@ -4,25 +4,15 @@ window.addEventListener("popstate", function () {
    console.log("popstate")
 });
 
-window.addEventListener("DOMContentLoaded", function (a) {
-   console.log("check dom loaded")
-});
+// window.addEventListener("DOMContentLoaded", function (a) {
+//    console.log("check dom loaded")
+// });
 
-window.onload = function () {
-  console.log("check")
-}
+// window.onload = function () {
+//   console.log("check")
+// }
 window.onscroll = function ()  {
   createButton()
-  // get post
-  // const elements = document.getElementsByClassName("x1cy8zhl x78zum5 x1q0g3np xod5an3 x1pi30zi x1swvt13 xz9dl7a");
-
-  // for(const element of elements) {
-  //   const parent = element.parentNode;
-  //   const nextSibling = parent.nextSibling
-  //   console.log(nextSibling)
-  // }
-
-  console.log("check")
 
 }
 
@@ -133,26 +123,46 @@ function createButton() {
       url: linkPage, 
       images: imageLinks,
     }
-    console.log(dataSubmit)
 
-        fetch("http://localhost:8080/api/post/getpostfb/get",
-      {
-          headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-          },
-          method: "POST",
-          body: JSON.stringify(dataSubmit)
-      })
-      .then(function(res){ 
-          if(res.status) {
-            parent.parentNode.style.setProperty("background-color", "white", "important");
-            parent.parentNode.style.setProperty("z-index", "9999");
-            parent.parentNode.style.setProperty("opacity", "0.005");
-            parent.parentNode.style.setProperty("pointer-events", "none")            
-          }
-      })
-      .catch(function(err){ console.log(err?.message) })
+      //   fetch("http://localhost:8080/api/post/getpostfb/get",
+      // {
+      //     headers: {
+      //     'Accept': 'application/json',
+      //     'Content-Type': 'application/json'
+      //     },
+      //     method: "POST",
+      //     body: JSON.stringify(dataSubmit)
+      // })
+      // .then(function(res){ 
+      //     if(res.status) {
+      //       parent.parentNode.style.setProperty("background-color", "white", "important");
+      //       parent.parentNode.style.setProperty("z-index", "9999");
+      //       parent.parentNode.style.setProperty("opacity", "0.005");
+      //       parent.parentNode.style.setProperty("pointer-events", "none")            
+      //     }
+      // })
+      // .catch(function(err){ console.log(err?.message) })
+      if (dataSubmit.content && dataSubmit.content != "") {
+        fetch("http://127.0.0.1:8000/check-post",
+        {
+            headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+            },
+            method: "POST",
+            body: JSON.stringify(dataSubmit)
+        })
+        .then((response) => response.json())
+        .then(function(res){ 
+            if(res.status) {
+              parent.parentNode.style.setProperty("background-color", "white", "important");
+              parent.parentNode.style.setProperty("z-index", "9999");
+              parent.parentNode.style.setProperty("opacity", "0.005");
+              parent.parentNode.style.setProperty("pointer-events", "none")            
+            }
+        })
+        .catch(function(err){ console.log(err?.message) })
+      }
   }
 
 

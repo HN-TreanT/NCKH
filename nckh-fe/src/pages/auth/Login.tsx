@@ -23,11 +23,15 @@ const Login = () => {
         console.log(res)
         if (res.status) {
           console.log("res.status", res.data.name)
-          localStorage.setItem("role", res.data.id_position)
-          localStorage.setItem("username", res.data.TaiKhoan)
-          localStorage.setItem("name", res.data.name)
-          localStorage.setItem("token", res.data.access_token)
-          localStorage.setItem("refresh_token", res.data.refresh_token)
+          // localStorage.setItem("role", res.data.id_position)
+          // localStorage.setItem("username", res.data.TaiKhoan)
+          // localStorage.setItem("name", res.data.name)
+          // localStorage.setItem("token", res.data.access_token)
+          // localStorage.setItem("refresh_token", res.data.refresh_token)
+          localStorage.setItem("username", "admin");
+          localStorage.setItem("name", "Hoàng Nam");
+          localStorage.setItem("token", "ok");
+          navigate(RouterLinks.KIEM_TRA_WEBSITE);
     // navigate(RouterLinks.KIEM_TRA_WEBSITE)
         } else {
           message.error(res.message)

@@ -23,8 +23,7 @@ interface optionProps {
   status: String;
   icon?: any;
 }
-const KiemTraWebsite: React.FC = () => {
-  const [status, setStatus] = useState();
+const KiemTraOneWebsite: React.FC = () => {
   const [optionsStep1, setOptionStep1] = useState<optionProps>({
     status: "wait",
   });
@@ -35,11 +34,8 @@ const KiemTraWebsite: React.FC = () => {
     status: "wait",
   });
 
-  const [dataUrl, setDataUrl] = useState<any>([]);
   const [urlInput, setUrlInput] = useState<any>();
-  const [urlPage, setUrlPage] = useState<UrlPage[]>([]);
-  console.log("check", urlPage);
-  const [count, setCount] = useState(0);
+
   const items: any[] = [
     {
       title: "Quét trang web",
@@ -65,13 +61,12 @@ const KiemTraWebsite: React.FC = () => {
       icon: <LoadingOutlined />,
     });
     crawlServices
-      .getWebsite({
+      .getOneWebsite({
         website: urlInput,
-        countPage: 100,
       })
       .then((res) => {
         if (res.status && Array.isArray(res?.data?.result)) {
-          setUrlPage(res.data.result);
+          console.log(res)
           setOptionStep1({
             status: "finish",
           });
@@ -89,45 +84,6 @@ const KiemTraWebsite: React.FC = () => {
       });
   };
 
-  // const handleCheck = () => {
-  //   setOptionStep1({
-  //     status: "process",
-  //     icon: <LoadingOutlined />,
-  //   });
-  //   setTimeout(() => {
-  //     setOptionStep1({
-  //       status: "finish",
-  //     });
-  //     setOptionStep2({
-  //       status: "process",
-  //       icon: <LoadingOutlined />,
-  //     });
-  //     setTimeout(() => {
-  //       setOptionStep2({
-  //         status: "finish",
-  //       });
-  //       setOptionStep3({
-  //         status: "process",
-  //         icon: <LoadingOutlined />,
-  //       });
-  //       setTimeout(() => {
-  //         setOptionStep3({
-  //           status: "finish",
-  //         });
-  //         setDataUrl(fakeData);
-  //       }, 10000);
-  //     }, 10000);
-  //   }, 10000);
-  // };
-
-  const columns: any = [
-    {
-      title: "Các page nhạy cảm",
-      dataIndex: "url",
-      // key: "name",
-      // align: "center",
-    },
-  ];
   return (
     <div className="kiem-tra">
       <Row>
@@ -139,7 +95,7 @@ const KiemTraWebsite: React.FC = () => {
             },
             {
               title: (
-                <span style={{ fontWeight: "bold" }}>Quét trang web</span>
+                <span style={{ fontWeight: "bold" }}>Kiểm tra website</span>
               ),
             },
           ]}
@@ -158,7 +114,7 @@ const KiemTraWebsite: React.FC = () => {
             type="primary"
             style={{ marginLeft: "10px" }}
           >
-            Kiểm tra
+            Tiến hành
           </Button>
         </Col>
         <Col span={8}></Col>
@@ -167,14 +123,14 @@ const KiemTraWebsite: React.FC = () => {
         </Col>
       </Row>
       <Row style={{ marginTop: "20px", width: "100%", textAlign: "left" }}>
-        <Table
+        {/* <Table
           style={{ width: "100%" }}
           dataSource={dataUrl}
           columns={columns}
-        />
+        /> */}
       </Row>
     </div>
   );
 };
 
-export default KiemTraWebsite;
+export default KiemTraOneWebsite;
