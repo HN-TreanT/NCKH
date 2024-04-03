@@ -57,6 +57,8 @@ const KiemTraOneWebsite: React.FC = () => {
     },
   ];
 
+  
+
   const handleCheck = () => {
     setOptionStep1({
       status: "process",
@@ -107,8 +109,10 @@ const KiemTraOneWebsite: React.FC = () => {
             })
               if(res2.status) {
                  setNhaycam(true)
+                 form.submit()
               } else {
                 setNhaycam(false)
+                form.submit()
                 
               }
           })
@@ -184,10 +188,10 @@ const KiemTraOneWebsite: React.FC = () => {
               //   message:"Nội dung nhạy cảm"
               // },
               {
-                message:"",
+                message:"Nội dung nhạy cảm!",
                 validator: (_, value) => {
                   if (nhaycam) {
-                    throw new Error("Nội dung nhạy cảm ");
+                    throw new Error("Nội dung nhạy cảm!");
                   }
                  }
                }

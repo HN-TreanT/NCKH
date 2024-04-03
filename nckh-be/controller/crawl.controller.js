@@ -18,7 +18,9 @@ const testWebsite = async (req,res) => {
   if(!website) {
     return responseInValid({res, message:"website required"})
   }
-  const browser = await puppeteer.launch()
+  const browser = await puppeteer.launch({
+    timeout: 0
+  })
   const page = await browser.newPage()
   page.setDefaultNavigationTimeout(0)
   await page.goto(website, {timeout: 0}) 
@@ -51,7 +53,9 @@ const getWebsite = async (req, res) => {
     if(!website) {
         return responseInValid({res, message:"website required"})
     }
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+      timeout: 0
+    });
 
     const registry = {};
     let queue = [website];
