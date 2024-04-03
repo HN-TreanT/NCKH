@@ -66,7 +66,7 @@ async def root():
 
 @app.post("/check-post")
 async def checkPost(post : Post):
-    print(post)
+    print(post.content)
     response = {
             "status": True,
             "message": "success",
@@ -83,7 +83,7 @@ async def checkPost(post : Post):
         
         if result == "nhaycam":
             return response       
-        response["status"] = False
+        response["status"] = True
         response["message"] = "Khong nhay cam"
         return response
     except Exception as e:

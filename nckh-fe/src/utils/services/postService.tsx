@@ -4,12 +4,18 @@ const api = createApiService();
 
 const thongke = (params: any) => {
   return api.makeAuthRequest({
-    url: `/api/post/thongke/thongke`,
+    url: `/api/post/thongke/thongke2`,
     method: "GET",
     params: params,
   });
 };
-
+const thongketheothang = (params: any) => {
+  return api.makeAuthRequest({
+    url: `/api/post/thongke/thongketheothang`,
+    method: "GET",
+    params: params,
+  });
+};
 const get = (params: any) => {
   return api.makeAuthRequest({
     url: `/api/post`,
@@ -55,4 +61,5 @@ export const postServices = {
   remove,
   detail,
   thongke,
+  thongketheothang
 };

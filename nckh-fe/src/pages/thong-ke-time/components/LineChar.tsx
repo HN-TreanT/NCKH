@@ -53,13 +53,17 @@ const data = [
     amt: 2100,
   },
 ];
-const LineChar: React.FC = () => {
+interface Props {
+  dataLineChar: any
+}
+const LineChar: React.FC<Props> = (props) => {
+  const {dataLineChar} = props
   return (
     <ResponsiveContainer width="100%" height={500}>
       <LineChart
         width={500}
         height={300}
-        data={data}
+        data={dataLineChar}
         margin={{
           top: 5,
           right: 30,
@@ -74,11 +78,11 @@ const LineChar: React.FC = () => {
         <Legend />
         <Line
           type="monotone"
-          dataKey="pv"
+          dataKey="2023"
           stroke="#8884d8"
           activeDot={{ r: 8 }}
         />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="2024" stroke="#82ca9d" />
       </LineChart>
     </ResponsiveContainer>
   );

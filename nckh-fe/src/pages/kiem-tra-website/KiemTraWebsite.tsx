@@ -66,7 +66,7 @@ const KiemTraOneWebsite: React.FC = () => {
       .getOneWebsite({
         website: urlInput,
       })
-      .then((res) => {
+      .then((res: any) => {
         if (res.status) {
           
           setOptionStep1({
@@ -76,13 +76,17 @@ const KiemTraOneWebsite: React.FC = () => {
             status: "process",
             icon: <LoadingOutlined />,
           });
+          console.log(res.data)
           setData(res.data)
+          form.setFieldsValue({
+            content:res?.data?.content
+          })
           // kiem tra\
           const dataSubmit = {
             title:res?.data?.title || "" ,
             content: res?.data?.title || "" ,
             url: urlInput, 
-            images: res?.data?.title || "",
+            images: [],
           }
           fetch("http://127.0.0.1:8000/check-post",
           {
@@ -189,9 +193,10 @@ const KiemTraOneWebsite: React.FC = () => {
                }
             ]}
            name={"content"}
-           initialValue={data?.content}
+
+          //  initialValue={"Nguyen Hoangf nam"}        
           >
-             <Input.TextArea  rows={25} ></Input.TextArea>
+             <Input.TextArea defaultValue={data?.content || ""} rows={25} ></Input.TextArea>
           </Form.Item>
         </Form>
         

@@ -10,5 +10,6 @@ Route.get("/csv/export", tryCatch(controller.exportExcel))
 
 Route.get("/thongke/thongke", tryCatch(controller.thongKe))
 Route.post("/getpostfb/get", tryCatch(controller.getPostFacebook))
-
+Route.get("/thongke/thongke2", tryCatch(controller.thongKe2))
+Route.get("/thongke/thongketheothang", tryCatch(controller.thongketheothang))
 module.exports = Route

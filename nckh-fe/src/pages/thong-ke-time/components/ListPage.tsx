@@ -6,6 +6,9 @@ interface DataType {
 }
 interface Props {
   data: any[];
+  postTitle: any,
+  setPostTitle: any,
+  handleClickRowTable: any
 }
 const fakeData = [
   {
@@ -43,27 +46,59 @@ const fakeData = [
   },
 ];
 const ListPage: React.FC<Props> = (props) => {
-  const { data } = props;
+  const { data , postTitle, setPostTitle, handleClickRowTable} = props;
   const [dataSource, setDataSource] = useState([]);
   const columns: TableProps<DataType>["columns"] = [
     {
-      title: "URL page nhạy cảm",
-      dataIndex: "url",
+      title: "Các mục tiêu theo dõi",
+      dataIndex: "name",
       key: "name",
+      align: "center",
       render: (text) => (
-        // <div style={{ wordWrap: "break-word", wordBreak: "break-all" }}>
-        //   {value}
-        // </div>
+        
         <span title={text}>
-          {text.length > 80 ? `${text.slice(0, 80)}...` : text}
-        </span>
+        {text ? text : "Không xác định"}
+      </span>
       ),
     },
+    {
+      title: "Số lượng bài viết",
+      dataIndex: "uv",
+      key: "uv",
+      align: "center",
+    
+    },
   ];
+
+  const rowSelection = {
+    onChange: (selectedRowKeys: any, selectedRows: any) => {
+       handleClickRowTable(selectedRows[0]?.name)
+    },
+    getCheckboxProps: (record: any) => ({
+      disabled: record.name === 'Disabled User',
+      // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
   return (
     <Table
+    rowSelection={{
+      type: "radio",
+      ...rowSelection,
+    }}
+    //   onRow={(record, rowIndex) => {
+    //   return {
+    //     onClick: event => handleClickRowTable(record?.name), // click row
+    //   };
+    //  }}
       style={{ justifyContent: "left" }}
-      dataSource={data}
+      dataSource={data.map((item: any, index: any) => {
+        return {
+          ...item,
+          key: index
+        }
+
+      })}
       pagination={false}
       columns={columns}
     />

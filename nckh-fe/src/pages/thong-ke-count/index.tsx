@@ -58,11 +58,11 @@ const ThongKeCount: React.FC = () => {
     },
 
     {
-      title: "Nội dung",
-      dataIndex: "content",
-      render: (text, record, index) => (
-        <span>{text.length > 80 ? `${text.slice(0, 80)}...` : text}</span>
-      ),
+      title: "Tóm tắt",
+      dataIndex: "summarization",
+      // render: (text, record, index) => (
+      //   <span>{text.length > 80 ? `${text.slice(0, 80)}...` : text}</span>
+      // ),
     },
   ];
 

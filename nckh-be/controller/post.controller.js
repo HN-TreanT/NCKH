@@ -6,7 +6,9 @@ const Posts = require("../model/post.model")
 const { convertArrayToCSV } = require('convert-array-to-csv');
 const fs = require("fs")
 const iconv = require("iconv-lite")
-const path = require("path")
+const path = require("path");
+const Posts2 = require("../model/post2.model");
+const Summary = require("../model/sumary.mode");
 const postSchema = Joi.object().keys({
     title: Joi.string(),
     content:  Joi.string(),
@@ -71,8 +73,11 @@ const get = async (req,res) => {
     const {search} = req.query
     const {limit, offset} = req.pagination
     let options = {}
-    const data = await Posts.find(options).skip(offset).limit(limit).sort("createdAt")
-    const count = await Posts.find(options).countDocuments()
+    // const data = await Posts.find(options).skip(offset).limit(limit).sort("createdAt")
+    // const count = await Posts.find(options).countDocuments()
+    const test = await Summary.find()
+    const data = await Summary.find(options).skip(offset).limit(limit).sort("createdAt")
+    const count = await Summary.find(options).countDocuments()
     return responseSuccessWithData({res, data :{
         data,
         count,
@@ -173,6 +178,97 @@ const thongKe = async (req, res) => {
    })
 }
 
+const thongKe2 = async (req, res) => {
+    const limit = req.query.limit || 10
+    const data = await Posts2.aggregate([
+      {
+         $group: {
+             // _id:{url: "$url", title: "$title"},
+             _id:"$title",
+             count: { $sum: 1 }                                                                                                                                                                                         
+         },
+      },
+      {
+         $sort: { count: -1 }
+     }, 
+     {
+         $limit: parseInt(limit) 
+     }
+    ])
+    return responseSuccessWithData({
+     res,
+     data: data
+    })
+ }
+
+ const thongketheothang = async (req, res) => {
+    const title = req.query.title;
+    const currentYear = new Date().getFullYear();
+    const dataCurrentYear = await Posts2.aggregate([
+        {
+            $match: { title:  title,
+                "createdAt": {
+                    $gte: new Date(currentYear, 0, 1), // Bắt đầu từ đầu năm hiện tại
+                    $lt: new Date(currentYear + 1, 0, 1) // Trước đầu năm tiếp theo
+                }
+            },
+            
+        },
+        {
+            $group: {
+                _id: {
+                    // year: { $year: currentYear },
+                    month: { $month: "$createdAt" }
+                },
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $sort: {  "_id.month": 1 }
+        }
+    ]);
+
+     const dataPreYear = await Posts2.aggregate([
+        {
+            $match: { title:  title,
+                "createdAt": {
+                    $gte: new Date(currentYear - 1, 0, 1), // Bắt đầu từ đầu năm hiện tại
+                    $lt: new Date(currentYear -1  + 1, 0, 1) // Trước đầu năm tiếp theo
+                }
+            },
+            
+        },
+        {
+            $group: {
+                _id: {
+                    // year: { $year: currentYear },
+                    month: { $month: "$createdAt" }
+                },
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $sort: {  "_id.month": 1 }
+        }
+    ]);
+
+   const data ={
+    currentYear: {
+        year: currentYear,
+        data: dataCurrentYear,
+    },
+    preYear: {
+        year: currentYear - 1,
+        data: dataPreYear,
+    }
+   }
+    return responseSuccessWithData({
+        res,
+        data: data
+    });
+};
+
+ 
 
 const getUrlPageNhayCam = async (req, res) => {
 
@@ -182,5 +278,5 @@ const getUrlPageNhayCam = async (req, res) => {
 
 
 module.exports = {
-    create, update, deletePost, detail, get, exportExcel,exportExcel2, thongKe, getUrlPageNhayCam, getPostFacebook
+    create, update, deletePost, detail, get, exportExcel,exportExcel2, thongKe, getUrlPageNhayCam, getPostFacebook, thongKe2, thongketheothang
 }
