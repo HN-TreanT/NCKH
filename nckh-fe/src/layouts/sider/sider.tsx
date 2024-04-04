@@ -3,7 +3,7 @@ import { Image, Menu } from "antd";
 import { useNavigate } from "react-router-dom";
 // import { CheckCircleOutlined, LineChartOutlined } from "@ant-design/icons";
 import { CheckCircleOutlined, LineChartOutlined } from "@ant-design/icons";
-import logo from "../../assets/logo.png";
+import logo from "../../assets/output-onlinepngtools.png";
 import SubMenu from "antd/es/menu/SubMenu";
 import { memo } from "react";
 import { RouterLinks } from "../../const/RouterLinks";
@@ -69,14 +69,14 @@ const Sidebar = () => {
       collapsible
       // style={{ height: "100vh" }}
     >
-      <div style={{ margin: "0 auto" }}>
+      <div style={{ margin: "0 auto", textAlign:"center" }}>
         <Image
           src={logo}
           preview={false}
           style={{
             padding: 5,
-            width: "170px",
-            height: "65px",
+            width: "100px",
+            height: "100px",
             marginTop: "7px",
           }}
         />

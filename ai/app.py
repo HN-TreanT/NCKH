@@ -7,6 +7,7 @@ import uvicorn
 from fastapi import FastAPI, Request
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
+from typing import List
 app = FastAPI()
 # add cor
 origins = ["*"] 
@@ -90,6 +91,30 @@ async def checkPost(post : Post):
         response["status"] = False
         response["message"] = str(e) 
         return response
-
+@app.post("/check-many-post")
+async def checkManyPost(list : List[Post]):
+    try:
+        response = {
+            "status": True,
+            "message": "success",
+            "data": []
+        }
+        data_response = []
+        for item in list:
+            data = preprocess.text_preprocessing(item.content)
+            data = preprocess.remove_stopwords(data)
+            # Dự đoán
+            np_data = np.array([data])
+            feature = feature_extractor.transform(np_data)
+            pred = model.predict(feature)
+            result = name_result[pred[0]]
+            if result == "nhaycam":
+                data_response.append(item)
+        response["data"]= data_response
+        return response
+    except Exception as e:
+        response["status"] = False
+        response["message"] = str(e) 
+        return response
 # if __name__ == "__main__":
 #    uvicorn.run(app, host="127.0.0.1", port=8889, reload=False)

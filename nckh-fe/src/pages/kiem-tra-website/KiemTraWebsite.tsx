@@ -36,7 +36,6 @@ const KiemTraOneWebsite: React.FC = () => {
 
   const [urlInput, setUrlInput] = useState<any>();
   const [data, setData] = useState<any>()
-  const [nhaycam, setNhaycam] = useState<boolean>(false)
 
   const items: any[] = [
     {
@@ -57,7 +56,8 @@ const KiemTraOneWebsite: React.FC = () => {
     },
   ];
 
-  
+
+
 
   const handleCheck = () => {
     setOptionStep1({
@@ -107,17 +107,18 @@ const KiemTraOneWebsite: React.FC = () => {
             setOptionStep3({
               status:"finish"
             })
+           
               if(res2.status) {
-                 setNhaycam(true)
-                 form.submit()
-              } else {
-                setNhaycam(false)
-                form.submit()
-                
-              }
+                form.setFields([
+                  {
+                    name: "content", // required
+                    errors: ["Nội dung nhạy cảm!"],
+                  },
+                ]);    
+              } 
           })
           .catch(function(err){ 
-            setNhaycam(true)
+            
             setOptionStep2({
               status: "error",
               icon: <CloseOutlined />,
@@ -182,20 +183,7 @@ const KiemTraOneWebsite: React.FC = () => {
         <h3>{data?.title || ""}</h3>
         <Form form={form} style={{width:"100%"}}>
           <Form.Item
-            rules={[
-              // {
-              //   required:true,
-              //   message:"Nội dung nhạy cảm"
-              // },
-              {
-                message:"Nội dung nhạy cảm!",
-                validator: (_, value) => {
-                  if (nhaycam) {
-                    throw new Error("Nội dung nhạy cảm!");
-                  }
-                 }
-               }
-            ]}
+            
            name={"content"}
 
           //  initialValue={"Nguyen Hoangf nam"}        
